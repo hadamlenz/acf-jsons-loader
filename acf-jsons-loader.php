@@ -1,12 +1,12 @@
 <?php
 /**
- * Loader for acf .json files
+ * Loader for acf .json files that can be included with a theme or plugin
  * circumvents the local-json functionality, do not use if you have that turned on
  * @author      H. Adam Lenz <hadamlenz@me.com>
  * @link        https://github.com/hadamlenz/Gamajo-Template-Loader
  * @copyright   2020 H. Adam Lenz
  * @license     GPL-2.0-or-later
- * @version     1.0
+ * @version     1.0.2
  * 
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -15,7 +15,7 @@ if ( ! class_exists( 'Acf_Theme_Jsons' ) && class_exists('acf_pro') ) {
 
     class Acf_Jsons_loader{
         /**
-         * the root of the theme directory 
+         * the root of the theme or plugin directory 
          * absolute
          *
          * @var [string]
