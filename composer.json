@@ -1,0 +1,13 @@
+{
+    "name": "hadamlenz/acf-jsons-loader",
+    "description": "Loader for acf .json files",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "H. Adam Lenz",
+            "email": "hadamlenz@unc.edu"
+        }
+    ],
+    "require": {}
+}
