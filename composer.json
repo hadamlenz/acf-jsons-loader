@@ -9,7 +9,16 @@
             "email": "hadamlenz@unc.edu"
         }
     ],
+    "keywords": [
+        "wordpress",
+        "templates"
+    ],
     "require": {
         "php": ">=5.2.4"
+    },
+    "autoload": {
+        "classmap": [
+          "acf-jsons-loader.php"
+        ]
     }
 }
