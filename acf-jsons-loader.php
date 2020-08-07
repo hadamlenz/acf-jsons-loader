@@ -1,6 +1,6 @@
 <?php
 /**
- * Loader for acf .json files that can be included with a theme or plugin
+ * Loader for acf .json files
  * circumvents the local-json functionality, do not use if you have that turned on
  * @author      H. Adam Lenz <hadamlenz@me.com>
  * @link        https://github.com/hadamlenz/Gamajo-Template-Loader
@@ -15,7 +15,7 @@ if ( ! class_exists( 'Acf_Theme_Jsons' ) && class_exists('acf_pro') ) {
 
     class Acf_Jsons_loader{
         /**
-         * the root of the theme or plugin directory 
+         * the root of the theme directory 
          * absolute
          *
          * @var [string]
@@ -73,20 +73,11 @@ if ( ! class_exists( 'Acf_Theme_Jsons' ) && class_exists('acf_pro') ) {
          * @return void
          */
         private function build_fieldgroup_array_from_array_of_files( $jsons ){
-            $current_groups = acf_get_field_groups();
-            $groups_keys_array = array();
 
-            //make an array of keys to search what's loaded
-            if( is_array( $current_groups ) && !empty( $current_groups ) ){
-                foreach( $current_groups as $a_current_group ){
-                    $groups_keys_array[] = $a_current_group['key'];
-                }
-            }
-            
             //loop thru the dev provided array
             foreach( $jsons as $slug => $path ){
                 //if slug is here already, we dont need to load this json
-                if( false === array_search( $slug, $groups_keys_array ) ){
+                if( false === array_search( $slug, $this->get_groups_keys_array() ) ){
                     //if not load the json string into the fieldgroup_array
                     if( false !== ( $this_json = $this->get_json_file( $path ) ) ){
                         $fieldgroup = json_decode ( $this_json, true );
@@ -106,8 +97,13 @@ if ( ! class_exists( 'Acf_Theme_Jsons' ) && class_exists('acf_pro') ) {
         public function build_fieldgroup_array_from_single_file( $file_path ){
             //we start this one by getting the file
             if( false !== ( $this_json = $this->get_json_file( $file_path ) ) ){
-                //then we just load it into the array
-                $this->fieldgroup_array = json_decode ( $this_json, true );
+                $fieldgroups = json_decode ( $this_json, true );
+                foreach( $fieldgroups as $fieldgroup ){
+                    //if slug is here already, we dont need to load this json
+                    if( false === array_search( $fieldgroup['key'], $this->get_groups_keys_array() ) ){
+                        $this->fieldgroup_array[] = $fieldgroup; 
+                    } 
+                }
             }
         }
 
@@ -136,6 +132,25 @@ if ( ! class_exists( 'Acf_Theme_Jsons' ) && class_exists('acf_pro') ) {
             } else {
                 return false;
             }
+        }
+
+        /**
+         * get the fieldgroup keys of the fields that are loaded
+         *
+         * @return void
+         */
+        private function get_groups_keys_array(){
+            $current_groups = acf_get_field_groups();
+            $groups_keys_array = array();
+
+            //make an array of keys to search what's loaded
+            if( is_array( $current_groups ) && !empty( $current_groups ) ){
+                foreach( $current_groups as $a_current_group ){
+                    $groups_keys_array[] = $a_current_group['key'];
+                }
+            }
+
+            return $groups_keys_array;
         }
     }
 }
