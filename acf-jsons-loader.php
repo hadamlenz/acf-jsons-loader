@@ -6,7 +6,7 @@
  * @link        https://github.com/hadamlenz/Gamajo-Template-Loader
  * @copyright   2020 H. Adam Lenz
  * @license     GPL-2.0-or-later
- * @version     1.0.2
+ * @version     1.0.3
  * 
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
