@@ -24,6 +24,6 @@ or
 ```
 new Acf_Jsons_loader( $theme_dir , array(
 'group_abcde123456789' => 'my-group-1.json',
-'group_987654321edcba' => 'my-group-1.json',
+'group_987654321edcba' => 'my-group-2.json',
 ));
 ```
